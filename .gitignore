@@ -1,0 +1,10 @@
+*.cache.*
+*.class
+*.jar
+*.symbolMap
+*unitCache*
+*.rpc
+*nocache.js
+*manifest.txt
+/war/WEB-INF/deploy/gwttests/rpcPolicyManifest/manifests/
+/target/
