@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
-import org.cg.common.io.FileUtil;
 
 public class AdFeatureExtractor {
 
