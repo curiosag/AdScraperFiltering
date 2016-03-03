@@ -1,18 +1,17 @@
-function printParams(theta, cols, paramThreshold, verbose)
+function printParams(theta, cols, paramThreshold, verbose, saveToFile)
 
-fprintf('sizes: theta %d cols %d \n', size(theta, 1), size(cols, 1));
-
-[paramValues paramIndex] = sort(theta);
-
-fprintf('feature param featureIndex\n');
-for i = 1:size(cols, 1)
-	if abs(paramValues(i)) >= paramThreshold
-		if verbose
-    		fprintf('%s \t\t\t %.3f \t %d \n', cols{paramIndex(i)}, paramValues(i), paramIndex(i));
-		else
-			fprintf('%s\n', cols(paramIndex(i, :)));
+if verbose
+	[paramValues paramIndex] = sort(theta);
+	fprintf('feature param featureIndex\n');
+	for i = 1:size(cols, 1)
+		if abs(paramValues(i)) >= paramThreshold
+    			fprintf('%s \t\t\t %.3f \t %d \n', cols{paramIndex(i)}, paramValues(i), paramIndex(i));
 		endif
-	endif
-end
+	end
+endif
 
+if saveToFile
+endif
+	fprintf('\nwriting parameters to parameters.csv \nrelated columns to paramcols.csv\n');
+	
 end;

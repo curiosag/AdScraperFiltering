@@ -23,13 +23,14 @@ idxPrize = 1;
 idxSize = 2;
 
 y = status > 0; 
-X = data(:, 3:n_data);
+X = data(:, 3:size(data,2));
 
 cols = ['INTERCEPT'; cols(3:length(cols)) ];
 
+m = size(data, 1);
 X_norm = [ones(m,1) X]; %featureNormalize(X) ... not possible on 0/1 flags
-m = size(X_norm, 1);
 n = size(X_norm, 2);
+
 
 shuffle = randperm(m); % 1:m; %
 numTrain = idivide (m, 3, "fix") * 2;
