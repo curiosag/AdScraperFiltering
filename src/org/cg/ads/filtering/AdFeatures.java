@@ -41,7 +41,6 @@ public class AdFeatures {
 		LuceneQuery query = new LuceneQuery(norm);
 
 		hasEmail = ad.description.indexOf('@') > 0 ? 1 : 0;
-		// wordIndicators = query.search(allTerms(), fuzzy);
 		wordIndicators = getThem(tokens, dict);
 
 		kaution = transpositionMatch(query, "kaution", "<NUM>", 1);

@@ -31,7 +31,12 @@ public class DictionaryTest {
 		assertArrayEquals(new Integer[] { 1, 1 }, counts);
 		
 	}
-
+	
+	@Test
+	public void testMailAdressExtractor() {
+		String source = " per E-Mail : ^^^^^ yasemin1976@crapmail.org ^^^itere Informationen : Philipp_Wulf@hotmail.com";
+		Dictionary.getEmailAdresses(source);
+	}
 	
 
 }

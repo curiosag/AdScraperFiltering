@@ -6,7 +6,7 @@ import org.cg.common.util.CollectionUtil;
 
 public class AdFeaturesFormat {
 
-	private final static String featureNames = "id,status,prize,size,rooms,hasEmail,substandard,provision,kaution,ablos";
+	private final static String featureNames = "id,status,prize,size,rooms,substandard,provision,kaution,ablos";
 	private static Dictionary dict = Dictionary.getInstance();
 
 	/**
@@ -19,7 +19,7 @@ public class AdFeaturesFormat {
 	}
 	
 	public final static List<String> booleanFeatures = CollectionUtil
-			.toList("status,hasEmail,substandard,provision,kaution".split(","));
+			.toList("status,substandard,provision,kaution".split(","));
 
 	// public static String fmt(AdFeatures f) {
 	// return String.format("%d,%d,%.2f,%.2f,%.2f,%d,%.2f,%.2f,%.2f,%d,%d,%d",
@@ -32,8 +32,8 @@ public class AdFeaturesFormat {
 
 	public static String fmt(AdFeatures f) {
 
-		return String.format("%d,%d,%.2f,%.2f,%.2f,%d,%d,%d,%d,%d", f.ad.id,
-				f.status, f.prize, f.size, f.rooms, f.hasEmail, f.substandard,
+		return String.format("%d,%d,%.2f,%.2f,%.2f,%d,%d,%d,%d", f.ad.id,
+				f.status, f.prize, f.size, f.rooms, f.substandard,
 				f.provision, f.kaution, f.ablose)
 				+ f.wordIndicators;
 

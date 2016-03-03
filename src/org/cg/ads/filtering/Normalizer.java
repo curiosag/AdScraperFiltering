@@ -57,52 +57,6 @@ public class Normalizer {
 		return result;
 	}
 
-	@SuppressWarnings("unused")
-	private static String smthg(TokenStream stream, int charBase,
-			List<Integer> requests, Map<Integer, String> results) {
-		int defaultInc = 1;
-
-		CharTermAttribute termAtt = stream
-				.getAttribute(org.apache.lucene.analysis.tokenattributes.CharTermAttribute.class);
-		OffsetAttribute offsetAtt = stream
-				.getAttribute(org.apache.lucene.analysis.tokenattributes.OffsetAttribute.class);
-		PositionIncrementAttribute incAtt = null;
-		if (stream
-				.hasAttribute(org.apache.lucene.analysis.tokenattributes.PositionIncrementAttribute.class)) {
-			incAtt = stream
-					.getAttribute(org.apache.lucene.analysis.tokenattributes.PositionIncrementAttribute.class);
-		}
-
-		int currIdx = 0;
-		while (incToken(stream)) {
-			currIdx += (incAtt != null) ? incAtt.getPositionIncrement()
-					: defaultInc;
-
-			currIdx += (incAtt != null) ? incAtt.getPositionIncrement()
-					: defaultInc;
-			if (requests.contains(currIdx)) {
-				int startOffset = offsetAtt.startOffset() + charBase;
-				int endOffset = offsetAtt.endOffset() + charBase;
-				results.put(startOffset, termAtt.toString());
-			}
-			if (currIdx > requests.size() - 1) {
-
-				try {
-					stream.end();
-				} catch (IOException e) {
-					throw new RuntimeException(e);
-				}
-				try {
-					stream.close();
-				} catch (IOException e) {
-					throw new RuntimeException(e);
-				}
-				return "OK";
-			}
-		}
-		return null;
-	}
-
 	private static boolean incToken(TokenStream stream) {
 		try {
 			return stream.incrementToken();

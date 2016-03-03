@@ -2,39 +2,36 @@
 %clear ; close all; clc
 lambda = 0.25;
 maxOptIter=400;
-detectionThreshold = 0.15;
+detectionThreshold = 0.25;
 
 showFalsePositives = 1;
 
-
 data = load('AdFeatures.csv');
-cols = textread('AdFeatures.col', "%s");
 ids = data(:,1);
 status = data(:,2);
 
-% use all terms (min occ 10)			99.0
+cols = textread('AdFeatures.col', "%s");
+
+% use all terms (min occ 10)			99.0		but too biased on test set
 % raw input, per word feature			96.89
 % accuracy with aggregated word types	92.43
 % with derived prize/m2 				91.3
 % replacing raw facts with derived ones 80
 % adding polynomials  					60
 
-m = size(data)(1);
-n_data = size(data)(2);
-features = data(:, 3:n_data);
-
 idxPrize = 1;
 idxSize = 2;
 
 y = status > 0; 
-X = features;
+X = data(:, 3:n_data);
 
 cols = ['INTERCEPT'; cols(3:length(cols)) ];
 
-X_norm = [ones(m,1) featureNormalize(X)];
+X_norm = [ones(m,1) X]; %featureNormalize(X) ... not possible on 0/1 flags
+m = size(X_norm, 1);
 n = size(X_norm, 2);
 
-shuffle = randperm(m);
+shuffle = randperm(m); % 1:m; %
 numTrain = idivide (m, 3, "fix") * 2;
 fprintf('Using: %d of %d for training\n', numTrain, m);
 
@@ -43,15 +40,15 @@ indices_test = shuffle(numTrain + 1:length(shuffle));
 
 X_train = X_norm(indices_train, :);
 X_test =  X_norm(indices_test, :);
-y_train = y(indices_train);
-y_test =  y(indices_test);
+y_train = y(indices_train, :);
+y_test =  y(indices_test, :);
 
 pos = (y == 1);
 neg = (y == 0);
 % maybe plot a bit
 % plot(X(pos, 1), 'r+','LineWidth', 2, 'MarkerSize', 7)
 
-% Optimize
+% Train
 initial_theta = zeros(n, 1);
 options = optimset('GradObj', 'on', 'MaxIter', maxOptIter);
 [theta, J, exit_flag] = ...
@@ -64,12 +61,11 @@ p_test = predict(theta, X_test, detectionThreshold);
 fprintf('Train Accuracy: %f\n', mean(double(p_train == y_train)) * 100);
 fprintf('test Accuracy: %f\n', mean(double(p_test == y_test)) * 100);
 
-
-% actually we're interested in detecting crooks, which are flagged as 0, so we invert it
+% actually we're interested in detecting crooks, which are flagged as 0 now, so we invert it
 fprintf('\nPrecision/Recall training\n');
 evalPrecisionRecall(ids(indices_train, :), p_train == 0, y_train == 0, showFalsePositives);
 fprintf('\nPrecision/Recall test\n');
 evalPrecisionRecall(ids(indices_test, :), p_test == 0, y_test == 0, showFalsePositives);
 
-printParams(theta, cols, 0, 1);
+%printParams(theta, cols, 0, 1);
 

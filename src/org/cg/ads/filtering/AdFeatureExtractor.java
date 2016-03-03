@@ -10,19 +10,18 @@ import org.apache.commons.io.FilenameUtils;
 public class AdFeatureExtractor {
 
 	private final String inputFilePath;
-	private final String outputFilePath;
+	private final String featuresFilePath;
 	private final String columnNamesFilePath;
 	private final boolean arffFormat;
 	private final String arffExtension = "arff";
 
 	private static Dictionary dict = Dictionary.getInstance();
 
-	public AdFeatureExtractor(String inputFilePath, String outputFilePath) {
+	public AdFeatureExtractor(String inputFilePath, String featuresFilePath) {
 		this.inputFilePath = inputFilePath;
-		this.outputFilePath = outputFilePath;
-		this.columnNamesFilePath = outputFilePath.replace(".csv",
-				".col");
-		arffFormat = FilenameUtils.isExtension(outputFilePath, arffExtension);
+		this.featuresFilePath = featuresFilePath;
+		this.columnNamesFilePath = featuresFilePath.replace(".csv", ".col");
+		arffFormat = FilenameUtils.isExtension(featuresFilePath, arffExtension);
 
 		checkFileExists(inputFilePath);
 	}
@@ -43,15 +42,15 @@ public class AdFeatureExtractor {
 		}
 
 		try {
-			FileUtils
-					.writeStringToFile(new File(outputFilePath), sb.toString());
+			FileUtils.writeStringToFile(new File(featuresFilePath),
+					sb.toString());
 			FileUtils.writeStringToFile(new File(columnNamesFilePath),
 					getColumnNames());
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
 		System.out.println("Features written to ");
-		System.out.println("    " + outputFilePath);
+		System.out.println("    " + featuresFilePath);
 		System.out.println("    " + columnNamesFilePath);
 	}
 
@@ -82,6 +81,15 @@ public class AdFeatureExtractor {
 			throw new RuntimeException("File not found: " + filePath);
 	}
 
+	/**
+	 * @param args
+	 *  	1)  source file, e.g. classifiedAds.csv 
+	 *  	2)  target file, e.g. AdFeatures.csv
+	 *  
+	 *  Subsequent processing relies on Dictionary
+	 *  Use Dictionary.main to create a dictionary from fusion table exported csv
+	 *  
+	 */
 	public static void main(String[] args) {
 		if (!(args.length == 2))
 			System.out

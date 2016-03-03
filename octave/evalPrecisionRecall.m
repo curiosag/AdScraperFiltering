@@ -13,13 +13,11 @@ function [precision recall] = evalPrecisionRecall(ids, predicted, actual, showFa
 	fprintf('Precision: \t%.3f\n', precision);
 	fprintf('Recall: \t%.3f\n', recall);
 
-	i = 1;
-
 if showFalsePositives
 	fprintf('\nFalse positives:\n');
 	for i = 1:length(false_pos_indicators) * showFalsePositives
 		if false_pos_indicators(i, 1) == 1
-			fprintf('%d\n', ids(i, 1));
+			fprintf('Id %d index %d\n', ids(i, 1), i);
 		endif
 	end
 	fprintf('\n');
