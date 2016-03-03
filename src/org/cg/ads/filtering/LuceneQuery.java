@@ -59,7 +59,7 @@ public class LuceneQuery {
 	 * @param fuzzy
 	 * @return
 	 */
-	public float search(List<String> terms, boolean fuzzy) {
+	public float searchWeighted(List<String> terms, boolean fuzzy) {
 		Check.isFalse(terms.isEmpty());
 		
 		float result = 0;
@@ -71,6 +71,20 @@ public class LuceneQuery {
 		return result / terms.size();
 	}
 
+	public String search(List<String> terms, boolean fuzzy) {
+		Check.isFalse(terms.isEmpty());
+		StringBuilder sb = new StringBuilder();
+
+		for (String term : terms)
+			if (search(getQueryString(term, fuzzy)) >= 1)
+				sb.append("1");
+			else
+				sb.append("0");
+
+		return sb.toString();
+	}
+	
+	
 	private String getQueryString(String term, boolean fuzzy) {
 		return fuzzy ? term + "~" : term;
 	}
@@ -108,6 +122,14 @@ public class LuceneQuery {
 		return doc;
 	}
 
+	/**
+	 * 
+	 * @param searcher
+	 * @param queryString
+	 * @return	1 if word occurs, 0 otherwise
+	 * @throws ParseException
+	 * @throws IOException
+	 */
 	private int search(IndexSearcher searcher, String queryString)
 			throws ParseException, IOException {
 

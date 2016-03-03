@@ -1,11 +1,11 @@
 package org.cg.ads.filtering;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
-
 import org.cg.common.io.FileUtil;
 import org.cg.common.util.CollectionUtil;
 import org.cg.common.util.StringUtil;
-import org.junit.Test;
 
 public class NormalizerTest {
 
@@ -15,15 +15,25 @@ public class NormalizerTest {
 	public void extractSingleWords() {
 		String path = FileUtil.pwd() + "/resources/descriptions.txt";
 		String descrriptions = FileUtil.readFromFile(path);
-		String dest = path.replace(".txt", ".stm");
+		String dest = path.replace(".txt", ".stem");
 		List<String> unique = CollectionUtil.uniqueElements(Normalizer
 				.normalize(descrriptions));
-		FileUtil.writeToFile(StringUtil.ToCsv(CollectionUtil.sort(unique), ""),
-				dest);
+		FileUtil.writeToFile(StringUtil.ToCsv(sortByLength(unique), "\n"), dest);
 		// System.out.println(Normalizer.normalize(val1));
 	}
 
-	@Test
+	private List<String> sortByLength(List<String> list) {
+		Collections.sort(list, new Comparator<String>() {
+
+			@Override
+			public int compare(String o1, String o2) {
+				return o1.length() - o2.length();
+			}
+		});
+		return list;
+	}
+
+	// @Test
 	public void testNorm() {
 		for (String s : Normalizer.normalize(val1))
 			System.out.println(s);

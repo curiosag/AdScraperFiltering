@@ -71,13 +71,13 @@ public class LuceneQueryTest {
 		LuceneQuery q = new LuceneQuery(val).setVerbose();
 
 		// gives higher weights for more matches. order doesen't matter
-		assertEquals(0, q.search(fromCsv("xx"), !fuzzy), delta);
-		assertEquals(0, q.search(fromCsv("xx, yy"), !fuzzy), delta);
+		assertEquals(0, q.searchWeighted(fromCsv("xx"), !fuzzy), delta);
+		assertEquals(0, q.searchWeighted(fromCsv("xx, yy"), !fuzzy), delta);
 		
-		assertEquals(0, q.search(fromCsv("xa, xx"), !fuzzy), delta);
-		assertEquals(0.5, q.search(fromCsv("xa, xx"), fuzzy), delta);
+		assertEquals(0, q.searchWeighted(fromCsv("xa, xx"), !fuzzy), delta);
+		assertEquals(0.5, q.searchWeighted(fromCsv("xa, xx"), fuzzy), delta);
 		
-		assertEquals(0.1, q.search(
+		assertEquals(0.1, q.searchWeighted(
 				fromCsv("aa, zz, yy, xx, ww, vv, uu, tt, ss, rr"), false),
 				delta);
 	}

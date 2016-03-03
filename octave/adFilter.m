@@ -1,8 +1,15 @@
 %% Initialization
 %clear ; close all; clc
+lambda = 0.25;
+maxOptIter=400;
+detectionThreshold = 0.15;
+
+showFalsePositives = 1;
+
 
 data = load('AdFeatures.csv');
 cols = textread('AdFeatures.col', "%s");
+ids = data(:,1);
 status = data(:,2);
 
 % use all terms (min occ 10)			99.0
@@ -15,15 +22,17 @@ status = data(:,2);
 m = size(data)(1);
 n_data = size(data)(2);
 features = data(:, 3:n_data);
-n = n_data - 2;
 
-IdxSize = 2;
-idxSubstandard = 8;
-features(:,idxSubstandard) = features(:,idxSubstandard) .* 10; % boost credibility of substandard indicator
+idxPrize = 1;
+idxSize = 2;
 
 y = status > 0; 
-X = features; %features(features(:, IdxSize) > 0, :);  remove unlikely outliers
+X = features;
+
+cols = ['INTERCEPT'; cols(3:length(cols)) ];
+
 X_norm = [ones(m,1) featureNormalize(X)];
+n = size(X_norm, 2);
 
 shuffle = randperm(m);
 numTrain = idivide (m, 3, "fix") * 2;
@@ -37,7 +46,6 @@ X_test =  X_norm(indices_test, :);
 y_train = y(indices_train);
 y_test =  y(indices_test);
 
-n = n + 1;
 pos = (y == 1);
 neg = (y == 0);
 % maybe plot a bit
@@ -45,12 +53,10 @@ neg = (y == 0);
 
 % Optimize
 initial_theta = zeros(n, 1);
-lambda = 1;
-options = optimset('GradObj', 'on', 'MaxIter', 400);
+options = optimset('GradObj', 'on', 'MaxIter', maxOptIter);
 [theta, J, exit_flag] = ...
 	fminunc(@(t)(costFunctionReg(t, X_train, y_train, lambda)), initial_theta, options);
 
-detectionThreshold = 0.2;
 % Compute accuracy on our training set
 p_train = predict(theta, X_train, detectionThreshold);
 p_test = predict(theta, X_test, detectionThreshold);
@@ -61,10 +67,9 @@ fprintf('test Accuracy: %f\n', mean(double(p_test == y_test)) * 100);
 
 % actually we're interested in detecting crooks, which are flagged as 0, so we invert it
 fprintf('\nPrecision/Recall training\n');
-evalPrecisionRecall(p_train == 0, y_train == 0);
+evalPrecisionRecall(ids(indices_train, :), p_train == 0, y_train == 0, showFalsePositives);
 fprintf('\nPrecision/Recall test\n');
-evalPrecisionRecall(p_test == 0, y_test == 0);
+evalPrecisionRecall(ids(indices_test, :), p_test == 0, y_test == 0, showFalsePositives);
 
-
-%printParams();
+printParams(theta, cols, 0, 1);
 
