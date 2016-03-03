@@ -11,7 +11,15 @@ if verbose
 endif
 
 if saveToFile
-endif
-	fprintf('\nwriting parameters to parameters.csv \nrelated columns to paramcols.csv\n');
+	fprintf('\nwriting parameters to parameters.txt \nrelated columns to paramcols.txt\n');
 	
+	save -ascii 'theta.txt' theta;
+
+   	fid = fopen ("thetacols.txt", "w");
+	for i = 1:size(cols, 1)
+    	fprintf(fid, '%s\n', cols{i});
+	end
+    fclose (fid); 
+endif
+
 end;

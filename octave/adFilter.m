@@ -68,5 +68,5 @@ evalPrecisionRecall(ids(indices_train, :), p_train == 0, y_train == 0, showFalse
 fprintf('\nPrecision/Recall test\n');
 evalPrecisionRecall(ids(indices_test, :), p_test == 0, y_test == 0, showFalsePositives);
 
-%printParams(theta, cols, 0, 1);
+printParams(theta, cols, 0, 1, 1);
 
