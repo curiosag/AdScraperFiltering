@@ -23,7 +23,7 @@ idxPrize = 1;
 idxSize = 2;
 
 y = status > 0; 
-X = data(:, 3:size(data,2));
+X = data(:, 4:size(data,2));
 
 cols = ['INTERCEPT'; cols(3:length(cols)) ];
 

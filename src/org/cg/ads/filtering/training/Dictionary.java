@@ -1,4 +1,4 @@
-package org.cg.ads.filtering;
+package org.cg.ads.filtering.training;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,7 +13,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.io.FileUtils;
@@ -43,6 +42,12 @@ public class Dictionary {
 		System.out.println("using terms to ignore from " + ignorePath);
 
 		load();
+	}
+
+	public Dictionary(List<Entry<String, Integer>> wordFrequencies) {
+		for (Entry<String, Integer> e : sortByFrequency(wordFrequencies))
+			words.put(e.getKey(), e.getValue());
+		path = null;
 	}
 
 	private Dictionary(String dest, List<Entry<String, Integer>> wordFrequencies) {
@@ -250,9 +255,9 @@ public class Dictionary {
 	private static List<Entry<String, Integer>> addEmailAdresses(
 			List<Entry<String, Integer>> words, String descriptions) {
 
-		for (String address : getEmailAdresses(descriptions)) 
+		for (String address : getEmailAdresses(descriptions))
 			words.add(createEntry(address, 1));
-		
+
 		return words;
 	}
 
@@ -347,6 +352,21 @@ public class Dictionary {
 			List<Entry<String, Integer>> wordFrequencies) {
 		instance = new Dictionary(dictionaryPath, wordFrequencies);
 		return instance;
+	}
+
+	public int size()
+	{
+		return words.size();
+	}
+	
+	public static Dictionary fromCsv(String value) {
+		List<Entry<String, Integer>> content = new LinkedList<Map.Entry<String, Integer>>();
+		for (String s : value.split(";")) {
+			String[] pair = s.split(",");
+			if (pair.length == 2)
+				content.add(createEntry(pair[1].trim(), Integer.valueOf(pair[0].trim())));
+		}
+		return new Dictionary(content);
 	}
 
 }

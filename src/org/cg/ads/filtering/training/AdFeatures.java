@@ -1,7 +1,8 @@
-package org.cg.ads.filtering;
+package org.cg.ads.filtering.training;
 
 import java.util.List;
 
+import org.cg.ads.aads.Ad;
 import org.cg.common.util.CollectionUtil;
 import org.cg.common.util.StringUtil;
 
@@ -16,7 +17,7 @@ public class AdFeatures {
 	public final int provision;
 	public final int kaution;
 	public final int ablose;
-	public final String wordIndicators;
+	public final Integer[] wordIndicators;
 
 	public final Ad ad;
 
@@ -32,7 +33,7 @@ public class AdFeatures {
 
 	public AdFeatures(Ad ad, Dictionary dict) {
 		this.ad = ad;
-		this.status = ad.status == 1 ? 1 : 0;
+		this.status = ad.getStatusPredicted() == 1 ? 1 : 0;
 		prize = ad.prize;
 		size = ad.size;
 		rooms = ad.rooms;
@@ -41,22 +42,12 @@ public class AdFeatures {
 		LuceneQuery query = new LuceneQuery(norm);
 
 		hasEmail = ad.description.indexOf('@') > 0 ? 1 : 0;
-		wordIndicators = getThem(tokens, dict);
+		wordIndicators = dict.createWordCounts(tokens);
 
 		kaution = transpositionMatch(query, "kaution", "<NUM>", 1);
 		provision = transpositionMatch(query, "provision", "<NUM>", 1);
 		ablose = transpositionMatch(query, "ablos", "<NUM>", 1);
 		substandard = query.searchPhrase("wc gang", 2);
-	}
-
-	private String getThem(List<String> tokens, Dictionary dict) {
-		Integer[] counts = dict.createWordCounts(tokens);
-
-		StringBuilder sb = new StringBuilder();
-		for (Integer i : counts)
-			sb.append("," + i.toString());
-
-		return sb.toString();
 	}
 
 	public List<String> allTerms() {

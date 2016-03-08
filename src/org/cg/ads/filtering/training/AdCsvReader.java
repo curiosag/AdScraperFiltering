@@ -1,4 +1,4 @@
-package org.cg.ads.filtering;
+package org.cg.ads.filtering.training;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -11,6 +11,7 @@ import java.util.Map;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
+import org.cg.ads.aads.Ad;
 import org.cg.common.util.CollectionUtil;
 
 public class AdCsvReader implements Iterable<Ad> {

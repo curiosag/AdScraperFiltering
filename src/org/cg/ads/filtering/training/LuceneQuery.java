@@ -1,4 +1,4 @@
-package org.cg.ads.filtering;
+package org.cg.ads.filtering.training;
 
 import java.io.IOException;
 import java.util.List;

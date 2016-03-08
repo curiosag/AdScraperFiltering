@@ -1,4 +1,4 @@
-package org.cg.ads.filtering;
+package org.cg.ads.filtering.training;
 
 import java.util.Collections;
 import java.util.Comparator;

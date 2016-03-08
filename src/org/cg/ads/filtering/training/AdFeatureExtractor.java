@@ -1,4 +1,4 @@
-package org.cg.ads.filtering;
+package org.cg.ads.filtering.training;
 
 import java.io.File;
 import java.io.IOException;
@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
+import org.cg.ads.aads.Ad;
 
 public class AdFeatureExtractor {
 

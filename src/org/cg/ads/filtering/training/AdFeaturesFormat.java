@@ -1,8 +1,9 @@
-package org.cg.ads.filtering;
+package org.cg.ads.filtering.training;
 
 import java.util.List;
 
 import org.cg.common.util.CollectionUtil;
+import org.cg.common.util.StringUtil;
 
 public class AdFeaturesFormat {
 
@@ -32,12 +33,19 @@ public class AdFeaturesFormat {
 
 	public static String fmt(AdFeatures f) {
 
-		return String.format("%d,%d,%.2f,%.2f,%.2f,%d,%d,%d,%d", f.ad.id,
+		return String.format("%d,%d,%.2f,%.2f,%.2f,%d,%d,%d,%d,", f.ad.id,
 				f.status, f.prize, f.size, f.rooms, f.substandard,
 				f.provision, f.kaution, f.ablose)
-				+ f.wordIndicators;
-
+				+ toCsv(f.wordIndicators);
 	};
+
+	private static String toCsv(Integer[] wordIndicators) {
+		String[] vals = new String[wordIndicators.length];
+		for (int i = 0; i < wordIndicators.length; i++) 
+			vals[i] = wordIndicators[i].toString();
+		
+		return StringUtil.ToCsv(vals, ",");
+	}
 
 	@SuppressWarnings("unused")
 	private static String booleanIndocatorStringToCsv(String s) {
