@@ -5,6 +5,9 @@ import static org.junit.Assert.*;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.cg.ads.filtering.training.LuceneFactory.AnalyzerType;
+import org.cg.common.util.StringUtil;
+import org.junit.Before;
 import org.junit.Test;
 
 public class LuceneQueryTest {
@@ -12,8 +15,14 @@ public class LuceneQueryTest {
 	final static int matchExactly = 0;
 	final static int matchTranspositions = 2;
 
-	// @Test
+	@Before
+	public void setUp() throws Exception {
+		LuceneFactory.instance().setAnalyzerType(AnalyzerType.standard);
+	}
+	
+	@Test
 	public void testEditDistance() {
+		
 		String val100 = "01234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890abcdefghijklmnopqrstuvwxyz";
 
 		String val1Edit = "a1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890abcdefghijklmnopqrstuvwxyz";
@@ -27,8 +36,9 @@ public class LuceneQueryTest {
 		assertEquals(0, q.search(val3Edits + "~")); // and fails for 3
 	}
 
-	//@Test
+	@Test
 	public void testSingleLetter() {
+		
 		String val = "a bb";
 		LuceneQuery q = new LuceneQuery(val).setVerbose();
 
@@ -38,6 +48,7 @@ public class LuceneQueryTest {
 
 	@Test
 	public void testMultipleWildcards() {
+		
 		String val = "avva  bc bxd ee ff gg";
 		LuceneQuery q = new LuceneQuery(val).setVerbose();
 
@@ -49,8 +60,9 @@ public class LuceneQueryTest {
 		
 	}
 	
-	//@Test
+	@Test
 	public void testMultipleWords() {
+		
 		String val = "aa bb cc dd ee ff gg";
 		LuceneQuery q = new LuceneQuery(val).setVerbose();
 
@@ -63,8 +75,9 @@ public class LuceneQueryTest {
 		assertEquals(1, q.search("aa bb cc dd ee ff gg [aa TO xx]")); // 0.96
 	}
 
-	//@Test
+	@Test
 	public void testMultipleWordsExactWeight() {
+		
 		final double delta = 0.001;
 		final boolean fuzzy = true;
 		String val = "aa bb cc dd ee ff gg hh ii jj";
@@ -90,9 +103,9 @@ public class LuceneQueryTest {
 		return result;
 	}
 
-	// @Test
-	public void test() {
-
+	 @Test
+	public void testGermanPhrases() {
+		
 		LuceneQuery q = new LuceneQuery(
 				"im fruhtau zu berge wir gehn falleraaaaaaah!").setVerbose();
 
@@ -119,6 +132,8 @@ public class LuceneQueryTest {
 		assertEquals(0, q.searchPhrase("wir zu", matchTranspositions)); // ??
 		
 		String val = "la wc airbnb gang eine heizung bk keine kwh makler lohnzettel ust kaution 500 ter aer eaa 20 euro provision  naja@koma.com";
+
+		q = new LuceneQuery(StringUtil.ToCsv(Normalizer.normalize(val), " "));
 		assertEquals(1, q.search("kaution <NUM>"));
 		assertEquals(1, q.searchPhrase("kaution <NUM>", 2));
 	}

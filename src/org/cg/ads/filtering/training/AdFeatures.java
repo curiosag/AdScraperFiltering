@@ -9,6 +9,7 @@ import org.cg.common.util.StringUtil;
 public class AdFeatures {
 
 	public final int status;
+	public final int statusPredicted;
 	public final double prize;
 	public final double size;
 	public final double rooms;
@@ -33,7 +34,8 @@ public class AdFeatures {
 
 	public AdFeatures(Ad ad, Dictionary dict) {
 		this.ad = ad;
-		this.status = ad.getStatusPredicted() == 1 ? 1 : 0;
+		this.status = ad.status;
+		this.statusPredicted = ad.getStatusPredicted() == 1 ? 1 : 0;
 		prize = ad.prize;
 		size = ad.size;
 		rooms = ad.rooms;
@@ -42,13 +44,41 @@ public class AdFeatures {
 		LuceneQuery query = new LuceneQuery(norm);
 
 		hasEmail = ad.description.indexOf('@') > 0 ? 1 : 0;
-		wordIndicators = dict.createWordCounts(tokens);
+		wordIndicators = dict.createWordIndicators(tokens);
 
+		debug(ad.id);
+		debug(tokens);
+		debug(wordIndicators);
+		
 		kaution = transpositionMatch(query, "kaution", "<NUM>", 1);
 		provision = transpositionMatch(query, "provision", "<NUM>", 1);
 		ablose = transpositionMatch(query, "ablos", "<NUM>", 1);
 		substandard = query.searchPhrase("wc gang", 2);
 	}
+	
+	private void debug(int id) {
+		System.out.println("Ad id " + Integer.toString(id) + " tokens");
+	}
+
+	private void debug(Integer[] wordIndicators2) {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < wordIndicators2.length; i++) 
+			sb.append(wordIndicators2[i] + " ");
+		
+		System.out.println(sb.toString());
+	}
+
+	private void debug(List<String> tokens) {
+
+		System.out.println("\n\nwords indicated\n");
+		StringBuilder sb = new StringBuilder();
+		for (String t : tokens) 
+			sb.append(t + " ");
+		
+		System.out.println(sb.toString());		
+	}
+
+
 
 	public List<String> allTerms() {
 		List<String> result = toList(negativeTerms);

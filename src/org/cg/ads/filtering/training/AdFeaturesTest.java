@@ -16,6 +16,7 @@ public class AdFeaturesTest {
 		return new Ad(
 				0,
 				0,
+				0,
 				1,
 				7,
 				2,
@@ -28,6 +29,7 @@ public class AdFeaturesTest {
 	
 	private Ad createNegativeAd() {
 		return new Ad(
+				0,
 				0,
 				0,
 				10,
@@ -69,6 +71,7 @@ public class AdFeaturesTest {
 	//@Test
 	public void testNeg() {
 		Ad ad = new Ad(
+				0,
 				0,
 				0,
 				1,

@@ -4,25 +4,45 @@
 %% Initialization
 %clear ; close all; clc
 
+% expected columns in input:
+%
+% 1 id
+% 2 status
+% 3 statusPredicted
+% 4 prize
+% 5 size
+% 6 rooms
+% 7 hasEmail
+% 8 substandard
+% 9 provision
+% 10 kaution
+% 11 ablos
+% 12 airbnb;      ----> from including this column it is a custom list of terms defined in dictionary
+% 13 achtung;
+% 14 hotmail.com;
+% ...
+
 classificationThreshold = 0.20; % sigmoid >= this is an ok item
 lambda = 0.2;
 
-
 data = load('AdFeatures.csv');
 cols = textread('AdFeatures.col', "%s");
-ids = data(:,1);
-status = data(:,2);
 
-m = size(data)(1);
+data_filtered = data(and(data(:, 4) > 0, data(:, 2) != 0), :); % filter zero prizes and status != 0 (only classified ads)
+ids = data_filtered(:,1);
+status = data_filtered(:,2);
+y = status > 0; 
+
+X = data_filtered(:, 4:6); 
 
 idxPrize = 1;
 idxSize = 2;
-
-y = status > 0; 
-X = data(:, 3:5); 
+idxEmail = 4;
+m = size(X, 1);
 
 % using price per square meter instead of price and size separately
 % brings down accuracy by 1% and precision even more
+% adding it to prize and size doesen't make a difference
 ppm2 = X(:, idxSize) ./ X(:, idxPrize);
 
 % introducing a distance of ppm2 to the average ppm2 of the 30% with highest values
@@ -31,21 +51,20 @@ fractionsAvg = 3;
 mAvg = idivide(m, fractionsAvg);
 top30 = sort(ppm2)(2*mAvg:m, :);
 ppm2Top30Average = sum(top30)/size(top30)(1);
-ppm2TopDist = ppm2 - ppm2Average;
+ppm2TopDist = ppm2 - ppm2Top30Average;
 
-% using polynomials sets all parameters to zero??
+% using polynomials sets all parameters to extremely large positive or almost 0 values
 polynomials = mapFeature(X(:, 1), X(:, 2));
 n_polynomials = size(polynomials, 2);
 
-X = [ X ]; % ppm2
-cols = ['INTERCEPT'; 'prize'; 'size'; 'rooms'; ]; %'ppm2' % num2cell((1:n_polynomials)')
+X = [ X ]; % ppm2 polynomials
+cols = ['INTERCEPT'; 'prize'; 'size'; 'rooms'; ]; %'ppm2' % num2cell(1:n_polynomials)'
 
-X_norm = [ones(m,1) featureNormalize(X)];
+X_norm = [ones(m,1) X]; %featureNormalize(X)
 n = size(X_norm)(2);
 
 shuffle = randperm(m);
 %shuffle = 1:m;
-
 
 numTrain = idivide (m, 5, "fix") * 4;
 fprintf('Using: %d of %d for training\n\n', numTrain, m);
@@ -85,5 +104,5 @@ evalPrecisionRecall(ids(indices_train, :), p_train == 0, y_train == 0, showFalse
 fprintf('\np/r Test\n');
 evalPrecisionRecall(ids(indices_test, :), p_test == 0, y_test == 0, showFalsePositives);
 
-printParams(theta, cols, 0, 1);
+printParams(theta, cols, 0, 1, 0);
 

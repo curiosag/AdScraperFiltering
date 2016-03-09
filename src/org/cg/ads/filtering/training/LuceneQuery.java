@@ -3,21 +3,19 @@ package org.cg.ads.filtering.training;
 import java.io.IOException;
 import java.util.List;
 
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
+import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
-import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
-import org.apache.lucene.store.RAMDirectory;
 import org.apache.lucene.util.QueryBuilder;
 import org.cg.common.check.Check;
 
@@ -45,7 +43,9 @@ public class LuceneQuery {
 	/**
 	 * 
 	 * @param s
-	 * @param maxHits default of 1 is what we need here. Lucene finds only 1 time in 1 document
+	 * @param maxHits
+	 *            default of 1 is what we need here. Lucene finds only 1 time in
+	 *            1 document
 	 */
 	private LuceneQuery(String s, int maxHits) {
 		Check.isTrue(maxHits > 0);
@@ -61,7 +61,7 @@ public class LuceneQuery {
 	 */
 	public float searchWeighted(List<String> terms, boolean fuzzy) {
 		Check.isFalse(terms.isEmpty());
-		
+
 		float result = 0;
 
 		for (String term : terms)
@@ -83,8 +83,7 @@ public class LuceneQuery {
 
 		return sb.toString();
 	}
-	
-	
+
 	private String getQueryString(String term, boolean fuzzy) {
 		return fuzzy ? term + "~" : term;
 	}
@@ -98,17 +97,15 @@ public class LuceneQuery {
 		}
 	}
 
-	private IndexSearcher createSearcher(String s) {
+	private IndexSearcher createSearcher(String text) {
 		try {
-			RAMDirectory dir = new RAMDirectory();
-			IndexWriter writer = new IndexWriter(dir, new IndexWriterConfig(
-					new StandardAnalyzer()));
+			IndexWriter writer = LuceneFactory.instance().createIndexWriter();
 
-			writer.addDocument(createDocument(s));
+			writer.addDocument(createDocument(text));
 			writer.commit();
 			writer.close();
 
-			IndexReader reader = DirectoryReader.open(dir);
+			IndexReader reader = DirectoryReader.open(writer.getDirectory());
 			return new IndexSearcher(reader);
 
 		} catch (IOException e) {
@@ -126,7 +123,7 @@ public class LuceneQuery {
 	 * 
 	 * @param searcher
 	 * @param queryString
-	 * @return	1 if word occurs, 0 otherwise
+	 * @return 1 if word occurs, 0 otherwise
 	 * @throws ParseException
 	 * @throws IOException
 	 */
@@ -135,7 +132,7 @@ public class LuceneQuery {
 
 		Query query;
 		try {
-			query = new QueryParser(anyField, new StandardAnalyzer())
+			query = new QueryParser(anyField, createAnalyzer())
 					.parse(queryString);
 		} catch (org.apache.lucene.queryparser.classic.ParseException e) {
 			throw new RuntimeException(e);
@@ -150,6 +147,11 @@ public class LuceneQuery {
 		return hits.length;
 	}
 
+	private Analyzer createAnalyzer() {
+		Analyzer analyzer = LuceneFactory.instance().createAnalyzer();
+		return analyzer;
+	}
+
 	private void feedback(String query, TopDocs docs) {
 		ScoreDoc[] hits = docs.scoreDocs;
 		System.out.println(hits.length + " hits querying: " + query);
@@ -159,17 +161,9 @@ public class LuceneQuery {
 			System.out.println("\t" + Float.toString(hits[i].score));
 	}
 
-	private Document getDoc(int docId) {
-		try {
-			return searcher.doc(docId);
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-	}
-
 	public int searchPhrase(String phrase, int slop) {
 		try {
-			return searcher.search(new QueryBuilder(new StandardAnalyzer())
+			return searcher.search(new QueryBuilder(createAnalyzer())
 					.createPhraseQuery(anyField, phrase, slop), maxHits).totalHits;
 		} catch (IOException e) {
 			throw new RuntimeException(e);

@@ -7,7 +7,7 @@ import org.cg.common.util.StringUtil;
 
 public class AdFeaturesFormat {
 
-	private final static String featureNames = "id,status,prize,size,rooms,substandard,provision,kaution,ablos";
+	private final static String featureNames = "id,status,statusPredicted,prize,size,rooms,hasEmail,substandard,provision,kaution,ablos";
 	private static Dictionary dict = Dictionary.getInstance();
 
 	/**
@@ -33,8 +33,8 @@ public class AdFeaturesFormat {
 
 	public static String fmt(AdFeatures f) {
 
-		return String.format("%d,%d,%.2f,%.2f,%.2f,%d,%d,%d,%d,", f.ad.id,
-				f.status, f.prize, f.size, f.rooms, f.substandard,
+		return String.format("%d,%d,%d,%.2f,%.2f,%.2f,%d,%d,%d,%d,%d,", f.ad.id,
+				f.status, f.statusPredicted, f.prize, f.size, f.rooms, f.hasEmail, f.substandard,
 				f.provision, f.kaution, f.ablose)
 				+ toCsv(f.wordIndicators);
 	};

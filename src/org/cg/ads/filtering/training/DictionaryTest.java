@@ -17,7 +17,7 @@ public class DictionaryTest {
 		words.add(Dictionary.createEntry("aaaaaa", 1));
 		words.add(Dictionary.createEntry("bbbbbb", 2));
 		Dictionary d = Dictionary.rewriteInstance(words);
-		Integer[] counts = d.createWordCounts();
+		Integer[] counts = d.createWordNumArray();
 		d.countOccurence("bbbbbb", counts);
 		d.countOccurence("aaaaax", counts);
 		assertArrayEquals(new Integer[] { 0, 1 }, counts);

@@ -3,15 +3,17 @@ package org.cg.ads.filtering.training;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
 import org.cg.common.io.FileUtil;
 import org.cg.common.util.CollectionUtil;
 import org.cg.common.util.StringUtil;
+import org.junit.Test;
 
 public class NormalizerTest {
 
 	String val1 = "1   2   1.1   1,1   1.1,-   Privat schöne Sympathische 2 Zimmer Wohne Nur Privat kein Makler, Miete getrennt begehbar Gepflegte 2 helle Zimmerwohnung in den 3 Liften ne Ablöse, NUR 3 Monatesmiete Kaution, keine Haustiere,nrufen Ab 11.00 Uhr Auskünfte und Besichtigungen Tel. 068181119136 um ein klicken Sie hier";
 
-	// @Test
+	//@Test
 	public void extractSingleWords() {
 		String path = FileUtil.pwd() + "/resources/descriptions.txt";
 		String descrriptions = FileUtil.readFromFile(path);
@@ -33,7 +35,7 @@ public class NormalizerTest {
 		return list;
 	}
 
-	// @Test
+	@Test
 	public void testNorm() {
 		for (String s : Normalizer.normalize(val1))
 			System.out.println(s);

@@ -57,7 +57,7 @@ public class Dictionary {
 		load();
 	}
 
-	public Integer[] createWordCounts() {
+	public Integer[] createWordNumArray() {
 		Integer[] result = new Integer[words.size()];
 		for (int i = 0; i < words.size(); i++)
 			result[i] = new Integer(0);
@@ -73,10 +73,17 @@ public class Dictionary {
 	 *            won't get counted.
 	 * @return int[]
 	 */
-	public Integer[] createWordCounts(List<String> words) {
-		Integer[] result = createWordCounts();
+	public Integer[] createWordIndicators(List<String> words) {
+		Integer[] result = createWordNumArray();
 		for (String s : words)
 			countOccurence(s, result);
+		return toIndication(result);
+	}
+
+	private Integer[] toIndication(Integer[] result) {
+		for (int i = 0; i < result.length; i++) 
+			if (result[i] > 0)
+				result [i] = 1;
 		return result;
 	}
 
@@ -96,7 +103,7 @@ public class Dictionary {
 		Check.isTrue(sizeThreshold >= 3);
 
 		LuceneQuery fuzzyQuery = new LuceneQuery(text);
-		Integer[] result = createWordCounts();
+		Integer[] result = createWordNumArray();
 		List<String> shortWords = getShorts(text, sizeThreshold);
 
 		Iterator<String> keys = this.words.keySet().iterator();
@@ -182,6 +189,9 @@ public class Dictionary {
 		int i = 0;
 		for (String s : linesFiltered) {
 			String[] parts = s.split(",");
+			
+			System.out.println(parts[1]);
+			
 			words.put(parts[1], i);
 			i++;
 		}

@@ -16,7 +16,7 @@ import org.cg.common.util.CollectionUtil;
 
 public class AdCsvReader implements Iterable<Ad> {
 	private final List<String> colNames = CollectionUtil
-			.toList("id,status,prize,rooms,size,url,location,phone,description,timestamp"
+			.toList("id,status,statusPredicted,prize,rooms,size,url,location,phone,description,timestamp"
 					.split(","));
 
 	private final Iterator<CSVRecord> records;
@@ -86,7 +86,7 @@ public class AdCsvReader implements Iterable<Ad> {
 	}
 
 	private Ad decodeAd(CSVRecord next) {
-		return new Ad(next.get("id"), next.get("status"), next.get("prize"),
+		return new Ad(next.get("id"), next.get("status"),  next.get("statusPredicted"), next.get("prize"),
 				next.get("rooms"), next.get("size"), next.get("url"),
 				next.get("location"), next.get("phone"),
 				next.get("description"), next.get("timestamp"));

@@ -4,9 +4,7 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import org.apache.lucene.analysis.TokenStream;
-import org.apache.lucene.analysis.de.GermanAnalyzer;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 import org.apache.lucene.analysis.tokenattributes.OffsetAttribute;
 import org.apache.lucene.analysis.tokenattributes.PositionIncrementAttribute;
@@ -24,7 +22,12 @@ public class Normalizer {
 
 		TokenStream stream = null;
 		try {
-			stream = new GermanAnalyzer().tokenStream(anyField, value);
+			try {
+				stream = new LuceneFactory().createAnalyzer().tokenStream(anyField, value);
+			} catch (IOException e1) {
+				e1.printStackTrace();
+				throw new RuntimeException(e1);
+			}
 			try {
 				stream.reset();
 				return normalize(stream);
@@ -67,7 +70,12 @@ public class Normalizer {
 
 	@SuppressWarnings("resource")
 	public static void printTokens(String s) {
-		printTokenStream(new GermanAnalyzer().tokenStream(anyField, s));
+		try {
+			printTokenStream(LuceneFactory.instance().createAnalyzer().tokenStream(anyField, s));
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
 	}
 
 	private static void printTokenStream(TokenStream ts) {

@@ -1,16 +1,21 @@
-%% Initialization
-%clear ; close all; clc
-lambda = 0.25;
-maxOptIter=400;
-detectionThreshold = 0.25;
+% expected columns in input:
+%
+% 1 id
+% 2 status
+% 3 statusPredicted
+% 4 prize
+% 5 size
+% 6 rooms
+% 7 hasEmail
+% 8 substandard
+% 9 provision
+% 10 kaution
+% 11 ablos
+% 12 airbnb;      ----> from including this column it is a custom list of terms defined in dictionary
+% 13 achtung;
+% 14 hotmail.com;
+% ...
 
-showFalsePositives = 1;
-
-data = load('AdFeatures.csv');
-ids = data(:,1);
-status = data(:,2);
-
-cols = textread('AdFeatures.col', "%s");
 
 % use all terms (min occ 10)			99.0		but too biased on test set
 % raw input, per word feature			96.89
@@ -19,15 +24,34 @@ cols = textread('AdFeatures.col', "%s");
 % replacing raw facts with derived ones 80
 % adding polynomials  					60
 
+% use only size, prize, rooms			75
+% use size, prize, rooms, hasMail		90
+
+
+%% Initialization
+%clear ; close all; clc
+lambda = 0.25;
+maxOptIter=400;
+detectionThreshold = 0.15;
+
+showFalsePositives = 1;
+
+data = load('AdFeatures.csv');
+
+cols = textread('AdFeatures.col', "%s");
+
+data_filtered = data(and(data(:, 4) > 0, data(:, 2) != 0), :); % filter zero prizes and status != 0 (only classified ads)
+ids = data_filtered(:,1);
+status = data_filtered(:,2);
 idxPrize = 1;
 idxSize = 2;
 
 y = status > 0; 
-X = data(:, 4:size(data,2));
+X = data_filtered(:, 4:size(data_filtered,2));
 
-cols = ['INTERCEPT'; cols(3:length(cols)) ];
+cols = ['INTERCEPT'; cols(4:length(cols)) ];
 
-m = size(data, 1);
+m = size(data_filtered, 1);
 X_norm = [ones(m,1) X]; %featureNormalize(X) ... not possible on 0/1 flags
 n = size(X_norm, 2);
 
