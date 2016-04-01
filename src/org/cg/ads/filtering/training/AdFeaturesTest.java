@@ -59,7 +59,7 @@ public class AdFeaturesTest {
 
 		assertEquals(1, features.prize, 0.001);
 		assertEquals(2, features.size, 0.001);
-		assertEquals(7, features.rooms, 0.001);
+		assertEquals(1, features.phone);
 		assertEquals(1, features.hasEmail);
 
 		assertEquals(1, features.substandard);

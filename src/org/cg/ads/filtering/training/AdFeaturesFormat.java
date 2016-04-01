@@ -7,7 +7,7 @@ import org.cg.common.util.StringUtil;
 
 public class AdFeaturesFormat {
 
-	private final static String featureNames = "id,status,statusPredicted,prize,size,rooms,hasEmail,substandard,provision,kaution,ablos";
+	private final static String featureNames = "id,status,statusPredicted,prize,size,phone,hasEmail,substandard,provision,kaution,ablose";
 	private static Dictionary dict = Dictionary.getInstance();
 
 	/**
@@ -33,18 +33,21 @@ public class AdFeaturesFormat {
 
 	public static String fmt(AdFeatures f) {
 
-		return String.format("%d,%d,%d,%.2f,%.2f,%.2f,%d,%d,%d,%d,%d,", f.ad.id,
-				f.status, f.statusPredicted, f.prize, f.size, f.rooms, f.hasEmail, f.substandard,
+		return String.format("%d,%d,%d,%.2f,%.2f,%d,%d,%d,%d,%d,%d", f.ad.id,
+				f.status, f.statusPredicted, f.prize, f.size, f.phone, f.hasEmail, f.substandard,
 				f.provision, f.kaution, f.ablose)
 				+ toCsv(f.wordIndicators);
 	};
 
 	private static String toCsv(Integer[] wordIndicators) {
+		if (wordIndicators.length == 0) 
+			return "";
+		
 		String[] vals = new String[wordIndicators.length];
 		for (int i = 0; i < wordIndicators.length; i++) 
 			vals[i] = wordIndicators[i].toString();
 		
-		return StringUtil.ToCsv(vals, ",");
+		return "," + StringUtil.ToCsv(vals, ",");
 	}
 
 	@SuppressWarnings("unused")

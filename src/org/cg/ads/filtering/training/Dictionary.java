@@ -289,7 +289,7 @@ public class Dictionary {
 			result.add(address);
 	}
 
-	private static List<Entry<String, Integer>> sortByFrequency(
+	public static List<Entry<String, Integer>> sortByFrequency(
 			List<Entry<String, Integer>> words) {
 
 		List<Entry<String, Integer>> result = new ArrayList<Map.Entry<String, Integer>>();
@@ -305,7 +305,7 @@ public class Dictionary {
 		return result;
 	}
 
-	private static List<Entry<String, Integer>> aggregateByFrequency(
+	public static List<Entry<String, Integer>> aggregateByFrequency(
 			List<String> list) {
 		Map<String, Integer> m = new HashMap<String, Integer>();
 		for (String s : list)

@@ -7,9 +7,15 @@ function [precision recall] = evalPrecisionRecall(ids, predicted, actual, showFa
 	false_pos = sum(false_pos_indicators);
 	false_neg = sum(and(not(predicted), actual));
 
-	precision = true_pos / (true_pos + false_pos);
-	recall = true_pos / (true_pos + false_neg);
+	precision = 0;
+	recall = 0;
 
+	if (true_pos + false_pos) > 0
+		precision = true_pos / (true_pos + false_pos);
+	endif
+	if (true_pos + false_neg) > 0
+		recall = true_pos / (true_pos + false_neg);
+	endif
 	fprintf('Precision: \t%.3f\n', precision);
 	fprintf('Recall: \t%.3f\n', recall);
 
