@@ -40,7 +40,7 @@ detectionThreshold = 0.1;
 cvFactor = 0.2; % fraction for cross-validation
 
 [ids, status, X, y] = sanitize(load('AdFeatures.csv'));
-X = [X(:,1:8) (X(:,1) ./ X(:,2))];
+X = [X(:,1:8) (X(:,1) ./ X(:,2))]; 
 
 cols = textread('AdFeatures.col', "%s");
 cols = ['INTERCEPT'; cols(4:11) ];%length(cols)

@@ -33,15 +33,11 @@ scale = 100000;
 V = Veig .* scale;
 % line([x1 x2], [y1 y2])
 scale = 100;
-d11 = line([mu(1), mu(1)+V(1,1)], [mu(2), mu(2)+V(1,2)]);
-d12 = line([mu(1), mu(1)-V(1,1)], [mu(2), mu(2)-V(1,2)]);
-d21 = line([mu(1), mu(1)+V(2,1)], [mu(2), mu(2)+V(2,2)]);
-d22 = line([mu(1), mu(1)-V(2,1)], [mu(2), mu(2)-V(2,2)]);
+d1 = line([mu(1)-V(1,1), mu(1)+V(1,1)], [mu(2)-V(1,2), mu(2)+V(1,2)]);
+d2 = line([mu(1)-V(2,1), mu(1)+V(2,1)], [mu(2)-V(2,2), mu(2)+V(2,2)]);
 
-set(d11, 'color', [0 1 0]);
-set(d12, 'color', [0 1 0]);
-set(d21, 'color', [0 0 1]);
-set(d22, 'color', [0 0 1]);
+set(d1, 'color', [0 1 0]);
+set(d2, 'color', [0 0 1]);
 
 % projected on feature 1 separates ok (try also Xproj(:, 1))
 
