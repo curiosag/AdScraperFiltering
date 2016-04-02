@@ -6,7 +6,7 @@ addpath("..");
 LDA; % load functions in script file. All variables in a script file are in global scope!
 
 [ids, status, X, y] = sanitize(load('../AdFeatures.csv'));
-X = [X(:,1:7) (X(:,1) ./ X(:,2))]; % 8th fature is all 0. add prize per square meter
+X = [X(:,1:7)]; % 8th fature is all 0. adding prize per square meter makes not much difference here
 
 cvFactor = 0.3;
 runs = 10;
@@ -17,12 +17,12 @@ for i = 1:runs
 	[Xt, Xcv, yt, ycv, idxt, idxcv] = splitTrainingData(X, y, cvFactor);
 
 	mu_t = mean(Xt);
-	[D, W_lda] = lda(Xt,yt);
+	[D, Veig] = lda(Xt,yt);
 	Xm = bsxfun(@minus, Xt, mu_t);
 
 	% project on feature 1
-	Xprojt = project(Xt, W_lda(:, 1));
-	Xprojcv = project(Xcv, W_lda(:, 1)); 
+	Xprojt = project(Xt, Veig(:, 1));
+	Xprojcv = project(Xcv, Veig(:, 1)); 
 
 	pred = double(Xprojt(:, 1) >= threshold);
 
