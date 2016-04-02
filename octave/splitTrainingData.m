@@ -1,5 +1,5 @@
-function [training, crossval, idxtraining, idxcrossval] = splitTrainingData(X, cvFactor)
-
+% split in training and cross validation sets
+function [Xtrain, Xcv, ytrain, ycv, idxtrain, idxcv] = splitTrainingData(X, y, cvFactor)
 	m = size(X, 1);
 	sh = randperm(m);
 	
@@ -8,9 +8,11 @@ function [training, crossval, idxtraining, idxcrossval] = splitTrainingData(X, c
 
 	%fprintf('Using: %d of %d for training %d for cross validation\n', numTrain, m, numCv);
 
-	idxtraining = sh(1:numTrain);
-	idxcrossval = sh(numTrain + 1:length(sh));
+	idxtrain = sh(1:numTrain);
+	idxcv = sh(numTrain + 1:length(sh));
 
-	training = X(idxtraining, :);
-	crossval = X(idxcrossval, :);
+	Xtrain = X(idxtrain, :);
+	Xcv = X(idxcv, :);
+	ytrain = y(idxtrain, :);
+	ycv =  y(idxcv, :);
 end

@@ -37,6 +37,7 @@ verbose = 1;
 lambda = 0.25;
 maxIterations=400;
 detectionThreshold = 0.1;
+cvFactor = 0.2; % fraction for cross-validation
 
 [ids, status, X, y] = sanitize(load('AdFeatures.csv'));
 X = [X(:,1:8) (X(:,1) ./ X(:,2))];
@@ -50,40 +51,26 @@ m = size(X, 1);
 X_norm = [ones(m,1) X]; %featureNormalize(X) ... not possible on 0/1 flags
 n = size(X_norm, 2);
 
-shuffle = randperm(m);
-%shuffle = 1:m;
-numTrain = idivide (m, 5, "fix") * 4;
-
-%fprintf('Using: %d of %d for training\n', numTrain, m);
-
-indices_train = shuffle(1:numTrain);
-indices_test = shuffle(numTrain + 1:length(shuffle));
-
-X_train = X_norm(indices_train, :);
-X_test =  X_norm(indices_test, :);
-y_train = y(indices_train, :);
-y_test =  y(indices_test, :);
+[X_train, X_cv, y_train, y_cv, indices_train, indices_cv] = splitTrainingData(X_norm, y, cvFactor);
 
 [theta, J, exit_flag] = trainFminunc(X_train, y_train, lambda, maxIterations);
 
 p = predict(theta, X_norm, detectionThreshold);
 
-printParams(theta, cols(1:10), 0, 1, 1);
-
 if 1
 	showFalsePositives = 1;
 
 	p_train = p(indices_train, :);
-	p_test = p(indices_test, :);
+	p_cv = p(indices_cv, :);
 
 	fprintf('Train Accuracy: %f\n', mean(double(p_train == y_train)) * 100);
-	fprintf('test Accuracy: %f\n', mean(double(p_test == y_test)) * 100);
+	fprintf('test Accuracy: %f\n', mean(double(p_cv == y_cv)) * 100);
 
 	% actually we're interested in detecting crooks, which are flagged as 0 now, so we invert it
 	fprintf('\nPrecision/Recall training\n');
 	evalPrecisionRecall(ids(indices_train, :), p_train == 0, y_train == 0, showFalsePositives);
 	fprintf('\nPrecision/Recall test\n');
-	evalPrecisionRecall(ids(indices_test, :), p_test == 0, y_test == 0, showFalsePositives);
+	evalPrecisionRecall(ids(indices_cv, :), p_cv == 0, y_cv == 0, showFalsePositives);
 
 	printParams(theta, cols(1:10), 0, 1, 0);
 

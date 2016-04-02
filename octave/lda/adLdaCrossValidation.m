@@ -2,7 +2,6 @@
 % seems precision cant be tuned much higer
 
 addpath("..");
-addpath("../pca");
 
 LDA; % load functions in script file. All variables in a script file are in global scope!
 
@@ -15,10 +14,7 @@ threshold=-0.5;
 
 for i = 1:runs
 
-	[Xt, Xcv, idxt, idxcv] = splitTrainingData(X, cvFactor);
-
-	yt = y(idxt);
-	ycv = y(idxcv);
+	[Xt, Xcv, yt, ycv, idxt, idxcv] = splitTrainingData(X, y, cvFactor);
 
 	mu_t = mean(Xt);
 	[D, W_lda] = lda(Xt,yt);
