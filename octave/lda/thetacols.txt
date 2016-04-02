@@ -1,0 +1,10 @@
+INTERCEPT
+prize
+size
+phone
+hasEmail
+substandard
+provision
+kaution
+ablose
+ppm2

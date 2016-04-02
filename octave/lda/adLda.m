@@ -33,9 +33,7 @@ title("projection 2 dimensions");
 figure;
  scale = 3000; 
  offset = 0; 
- Vs = V .* scale + offset;
-
-Vs(1:2,1:2)
+ Vs = W_lda .* scale + offset;
 
 drawLine([Vs(1,1) Vs(1,1)], [Vs(2,1) Vs(2,1)], '-k', 'LineWidth', 2);
 drawLine([Vs(1,2) Vs(1,2)], [Vs(2,2) Vs(2,2)], '-k', 'LineWidth', 2);
@@ -45,7 +43,7 @@ drawLine([Vs(1,2) Vs(1,2)], [Vs(2,2) Vs(2,2)], '-k', 'LineWidth', 2);
 % actually we're interested in detecting crooks, which are flagged as 0 now, so we invert it (positive=crook, false positive=labelled as crook, but is none)
 evalPrecisionRecall(ids, (Xproj(:, 1) >= -0.5) == 0, y==0, 1);
 
-% projected on feature 1 it separates ok
+% projected on feature 1 separates ok (try also Xproj(:, 1))
 
 Xproj = project(Xm, W_lda(:, 1)); % project on feature 1 only
 
@@ -59,7 +57,7 @@ title("projection 1st dimension");
 
 % projected on 3 features
 
-Xproj = project(Xm, W_lda(:, 1:3)); % project on 3 features
+Xproj = project(Xm, W_lda(:, 1:3)); 
 
 % scale and move. 3rd axis has values > 1 now, guess as a result of dim reduction/projection
 

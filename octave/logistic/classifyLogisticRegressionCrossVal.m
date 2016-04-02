@@ -1,3 +1,4 @@
+addpath("..");
 
 % expected columns in input:
 %
@@ -69,7 +70,7 @@ p = predict(theta, X_norm, detectionThreshold);
 
 printParams(theta, cols(1:10), 0, 1, 1);
 
-if 0
+if 1
 	showFalsePositives = 1;
 
 	p_train = p(indices_train, :);
@@ -84,7 +85,7 @@ if 0
 	fprintf('\nPrecision/Recall test\n');
 	evalPrecisionRecall(ids(indices_test, :), p_test == 0, y_test == 0, showFalsePositives);
 
-	printParams(theta, cols(1:10), 0, 1, 1);
+	printParams(theta, cols(1:10), 0, 1, 0);
 
 endif
 
