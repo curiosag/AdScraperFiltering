@@ -1,0 +1,1149 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+
+\series bold
+Linear model
+\series default
+ 
+\begin_inset Formula $\hat{y}_{i}=\hat{\beta}_{0}+\hat{\beta}_{1}x_{i}$
+\end_inset
+
+ where 
+\begin_inset Formula $\hat{y}$
+\end_inset
+
+ indicates an estimated value and the 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\hat{\beta}_{i}$
+\end_inset
+
+ estimated
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ parameters (synonym: coefficients).
+ It's relationship to the assumed 
+\begin_inset Quotes eld
+\end_inset
+
+real model
+\begin_inset Quotes erd
+\end_inset
+
+ is somewhat like 
+\begin_inset Formula $y_{i}=\hat{\beta}_{0}+\hat{\beta}_{1}x_{i}+\epsilon_{r}+\epsilon$
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+ where 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\epsilon_{r}$
+\end_inset
+
+ is the error introduced by the estimation and 
+\begin_inset Formula $\epsilon$
+\end_inset
+
+ is the error that can not be avoided at all, i.e.
+ the irreducible error.
+\end_layout
+
+\begin_layout Standard
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Residual
+\series default
+ 
+\begin_inset Formula $e_{i}=y_{i}-\hat{y}_{i}$
+\end_inset
+
+ , difference of actual and estimated value
+\end_layout
+
+\begin_layout Standard
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Residual sum of squares 
+\begin_inset Formula $RSS=e_{1}^{2}+e_{2}^{2}...e_{n}^{2}=\sum_{i=1}^{n}(y_{i}-\hat{y}_{i})^{2}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Population 
+\series bold
+mean
+\series default
+ 
+\begin_inset Formula $\mu$
+\end_inset
+
+ usually unknown
+\end_layout
+
+\begin_layout Standard
+Sample mean 
+\begin_inset Formula $\hat{\mu}=\overline{y}=\frac{1}{n}\sum_{i=1}^{n}y_{i}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Variance
+\series default
+ 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\sigma^{2}=\frac{1}{n-1}\sum_{i=1}^{n}(y_{i}-\overline{y})^{2}$
+\end_inset
+
+ (corrected) average sum of (squared (deviation from sample mean))
+\end_layout
+
+\begin_layout Standard
+
+\size footnotesize
+Divisor n-1 corrects for some sample issue, for the population the divisor
+ is n
+\end_layout
+
+\begin_layout Standard
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Standard deviation
+\series default
+ 
+\begin_inset Formula $\sigma=\sqrt{\sigma^{2}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Standard error
+\series default
+ of 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\mu$
+\end_inset
+
+:
+\begin_inset Formula $SE(\hat{\mu})=\frac{\sigma^{2}}{n}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+
+\begin_inset space ~
+\end_inset
+
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+It is shown hera as an analogon for the standard error of estimated model
+ parameters, which have more evolved formulae.
+ Hastie uses
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ 
+\begin_inset Quotes eld
+\end_inset
+
+standard deviation
+\begin_inset Quotes erd
+\end_inset
+
+ aand 
+\begin_inset Quotes eld
+\end_inset
+
+standard error
+\begin_inset Quotes erd
+\end_inset
+
+ synonymously later.
+\end_layout
+
+\begin_layout Standard
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Residual standard error
+\series default
+ 
+\begin_inset Formula $RSE=\sqrt{\ensuremath{\frac{RSS}{n-2}}}$
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+as a substitute for the 
+\series bold
+usually
+\series default
+ unknown variance in the population
+\end_layout
+
+\begin_layout Standard
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Confidence interval
+\series default
+ one can expect the true value of whatever (as opposed to the estimated
+ one) with a probability of ~95% within 2 
+\shape italic
+standard errors
+\shape default
+ left and right from the estimation.
+ 
+\end_layout
+
+\begin_layout Standard
+E.g.
+ for estimated parameter 
+\begin_inset Formula $\hat{\beta}_{1}$
+\end_inset
+
+the true value 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\beta_{1}$
+\end_inset
+
+is with an approximate probability of 95% in the interval 
+\begin_inset Formula $[\hat{\beta}_{1}+2SE(\hat{\beta}_{1}),\hat{\beta}_{1}-2SE(\hat{\beta}_{1})]$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+It is the same as to say 
+\begin_inset Quotes eld
+\end_inset
+
+The 95% confidence interval for 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\hat{\beta}_{1}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ is 
+\begin_inset Formula $\hat{\beta}_{1}\pm2SE(\hat{\beta}_{1})$
+\end_inset
+
+
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Null hypothesis testing
+\series default
+ for simple linear regression: there is no relationship between x and y,
+ same as to say that 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\beta_{1}=0$
+\end_inset
+
+.
+ Employs t-static and p-value
+\end_layout
+
+\begin_layout Standard
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+t-static
+\series default
+ 
+\begin_inset Formula $t=\sqrt{\frac{\hat{\beta}_{1}-0}{SE(\hat{\beta}_{1})}}$
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+ tells the number of standard errors that 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\hat{\beta}_{1}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+is away from 
+\begin_inset Formula $0$
+\end_inset
+
+, assuming that 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+the true value of 
+\begin_inset Formula $\beta_{1}=0$
+\end_inset
+
+.
+ 
+\begin_inset Formula $t$
+\end_inset
+
+ has approximately a normal distribution if 
+\begin_inset Formula $n>30$
+\end_inset
+
+.
+ Large absolute value
+\begin_inset Formula $\left\Vert t\right\Vert $
+\end_inset
+
+ : good estimate, small absolute value
+\begin_inset Formula $\left\Vert t\right\Vert $
+\end_inset
+
+ : bad estimate.
+\end_layout
+
+\begin_layout Standard
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+p-value
+\series default
+ probability to observe a value of t-static or larger due to chance only.
+ p very small: good.
+ p large: bad 
+\end_layout
+
+\begin_layout Standard
+
+\size footnotesize
+Typical p-value cutoffs for rejecting the null hypothesis are 5 or 1 %.
+ When n = 30, these correspond to t-statistics of around 2 and 2.75, respectively.
+\end_layout
+
+\begin_layout Standard
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Null hypothesis testing
+\series default
+ for multiple linear regression: there is no relationship between all 
+\begin_inset Formula $x_{i}$
+\end_inset
+
+ and y, same as to say that all 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\beta_{i}=0$
+\end_inset
+
+ versus the alternative, that at least one 
+\begin_inset Formula $\beta_{i}\neq0$
+\end_inset
+
+ .
+ Employs f-static and p-value.
+\end_layout
+
+\begin_layout Standard
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+F-static
+\series default
+ 
+\begin_inset Formula $F=\frac{(TSS-RSS)/p}{RSS-p-1}$
+\end_inset
+
+ 
+\begin_inset space ~
+\end_inset
+
+ where p is the number of parameters.
+ When there is no relationship between the response and predictors, one
+ would expect the F-statistic to take on a value close to 1.
+ 
+\size footnotesize
+How large does the F-statistic need to be before we can reject H 0 and conclude
+ that there is a relationship? It turns out that the answer depends on the
+ values of n and p.
+ When n is large, an F-statistic that is just a little larger than 1 might
+ still provide evidence against H 0 .
+ In contrast, a larger F-statistic is needed to reject H 0 if n is small.
+\end_layout
+
+\begin_layout Standard
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+P-value for f-static
+\series default
+ When 
+\begin_inset Formula $H_{0}$
+\end_inset
+
+ is true and the errors i have a normal distribution, the F-statistic follows
+ an F-distribution.
+ For any given value of n and p, any statistical software package can be
+ used to compute the p-value associated with the F-statistic using this
+ distribution.
+ Based on this p-value, we can determine whether or not to reject 
+\begin_inset Formula $H_{0}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Assessing the Accuracy of the Model
+\series default
+
+\begin_inset space ~
+\end_inset
+
+using RSE and 
+\begin_inset Formula $R^{2}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Residual Standard Error
+\series default
+ multiple linear regression 
+\begin_inset Formula $RSE=\sqrt{\ensuremath{\frac{1}{n-p-1}RSS}}=\sqrt{\ensuremath{\frac{1}{n-p-1}\sum_{i=1}^{n}(y_{i}-\hat{y}_{i})^{2}}}\text{ }$
+\end_inset
+
+where p is the number of parameters.
+ The RSE is considered a measure of the lack of fit of the model to the
+ data.
+ Small: good fit, large: bad.
+
+\size footnotesize
+ Roughly speaking, it is the average amount that the calculated response
+ will deviate from the true regression line.
+\end_layout
+
+\begin_layout Standard
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Residual Standard Error
+\series default
+ simple linear regression
+\begin_inset Formula $RSE=\sqrt{\ensuremath{\frac{1}{n-2}RSS}}=\sqrt{\ensuremath{\frac{1}{n-2}\sum_{i=1}^{n}(y_{i}-\hat{y}_{i})^{2}}}\text{ }$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $R^{2}$
+\end_inset
+
+Statistic: RSE as a proportion, 
+\begin_inset Formula $(0<=R^{2}<=1),$
+\end_inset
+
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $R^{2}=\sqrt{\frac{TSS-RSS}{TSS}}=\sqrt{1-\frac{RSS}{TSS}}$
+\end_inset
+
+where TSS is the 
+\family default
+\series bold
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+total sum of squares
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+: 
+\begin_inset Formula $TSS=\sum_{i=1}^{n}(y_{i}-\overline{y})^{2}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size footnotesize
+Measures the proportion of variability in Y that can be explained using
+ X.
+ An 
+\begin_inset Formula $R^{2}$
+\end_inset
+
+ statistic that is close to 1 indicates that a large proportion of the variabili
+ty in the response has been explained by the regression (good).
+ A number near 0 indicates that the regression did not explain much of the
+ variability in the response; this might occur because the linear model
+ is wrong, or the inherent error 
+\begin_inset Formula $σ^{2}$
+\end_inset
+
+ is high, or both (bad).
+\end_layout
+
+\begin_layout Standard
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\size footnotesize
+How small is good enough? In certain problems in physics, we may know that
+ the data truly comes from a linear model with a small residual error.
+ In this case, we would expect to see an R 2 value that is extremely close
+ to 1, and a substantially smaller R 2 value might indicate a serious problem
+ with the experiment in which the data were generated.
+ On the other hand, in typical applications in biology, psychology, marketing,
+ and other domains, the linear model (3.5) is at best an extremely rough
+ approximation to the data, and residual errors due to other unmeasured
+ factors are often very large.
+ In this setting, we would expect only a very small proportion of the variance
+ in the response to be explained by the predictor, and an R 2 value well
+ below 0.1 might be more realistic!
+\end_layout
+
+\begin_layout Standard
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Variable selection
+\series default
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Forward selection
+\series default
+ We begin with the null model—a model that contains an intercept but no
+ predictors.
+ We then fit p simple linear regressions and add to the null model the variable
+ that results in the lowest RSS.
+ We then add to that model the variable that results in the lowest RSS for
+ the new two-variable model.
+ This approach is continued until some stopping rule is satisfied.
+\end_layout
+
+\begin_layout Standard
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Backward selection
+\series default
+ We start with all variables in the model, and remove the variable with
+ the largest p-value—that is, the variable that is the least statistically
+ significant.
+ The new 
+\begin_inset Formula $(p−1)$
+\end_inset
+
+-variable model is fit, and the variable with the largest p-value is removed.
+ This procedure continues until a stopping rule is reached.
+ For instance, we may stop when all remaining variables have a p-value below
+ some threshold.
+\end_layout
+
+\begin_layout Standard
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Removing the Additive Assumption
+\series default
+ means use models of the form 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $Y=\hat{\beta}_{0}+\hat{\beta}_{1}x_{1}+\hat{\beta}_{2}x_{2}+\hat{\beta}_{3}x_{1}x_{2}+\epsilon$
+\end_inset
+
+ Always include the base features in this case.
+ The hierarchical principle states that if we include an interaction in
+ a model, we should also include the main effects, even if the p-values
+ associated with their coefficients are not significant.
+\end_layout
+
+\begin_layout Standard
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Possible Issues
+\end_layout
+
+\begin_layout Itemize
+Non-linearity of the response-predictor relationships
+\end_layout
+
+\begin_layout Itemize
+Correlation of error terms
+\end_layout
+
+\begin_layout Itemize
+Non-constant variance of error terms
+\end_layout
+
+\begin_layout Itemize
+Outliers
+\end_layout
+
+\begin_layout Itemize
+High-leverage points
+\end_layout
+
+\begin_layout Itemize
+Collinearity
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Variance Inflation Factor
+\series default
+ to assess multi-collinearity.
+ The VIF is the ratio of the variance of 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\hat{\beta}_{j}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ when fitting the full model divided by the variance of 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\hat{\beta}_{j}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ if fit on its own.
+ The smallest possible value for VIF is 1, which indicates the complete
+ absence of collinearity.
+ Typically in practice there is a small amount of collinearity among the
+ predictors.
+ As a rule of thumb, a VIF value that exceeds 5 or 10 indicates a problematic
+ amount of collinearity.
+\end_layout
+
+\begin_layout Standard
+\begin_inset space ~
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Use ANOVA function to compare models.
+\end_layout
+
+\end_body
+\end_document

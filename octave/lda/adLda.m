@@ -1,4 +1,5 @@
-% linear discriminant analysis like done here gives about 95% precision and 79% recall on training data
+% linear discriminant analysis like done here gives about 85-95% precision and 83%-95% recall on training data
+% there's one pathological case not checked where both are 0??
 
 addpath("..");
 addpath("../pca");
@@ -55,7 +56,6 @@ title("projection 1st dimension");
 [precision recall] = evalPrecisionRecall(ids, (Xproj(:, 1) >= -0.5) == 0, y==0, 1);
 
 
-
 % projected on 3 features
 
 Xproj = project(Xm, Veig(:, 1:3)); 
@@ -75,4 +75,5 @@ colors = [y==0 y==1 ((1:size(y)(1)).*0)']; %rgb vector. use zz(:) as last parame
 figure; 
 scatter3 (xx(:), yy(:), zz(:), 4, colors); 
 
+title("LDA projection on first 3 dimensions\n Good ads: green, bad ads: red", "fontsize", 12);
 

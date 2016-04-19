@@ -30,7 +30,7 @@ addpath("..");
 % use only size, prize, rooms			75
 % use size, prize, rooms, hasMail		90
 
-% accuracy is not great with this model (85%) but precision is > 96% leaving a recall of about 60%
+% accuracy is not great with this model (85%) but precision is >= 95% leaving a recall of about 60-65%
 % strangely removal of ppm2 may improve things
 % precision preferrable to LDA approach, though overall performance is worse
 
